@@ -1,5 +1,5 @@
 -- Database: Northwind
-select * from products
+select * from products;
 
 --1. Product isimlerini (`ProductName`) ve birim başına miktar (`QuantityPerUnit`) değerlerini almak için sorgu yazın.
 select product_name,quantity_per_unit from products;
@@ -33,7 +33,8 @@ select * from products
 where product_name like '%i';
 
 --9. Ürün birim fiyatlarına %18’lik KDV ekleyerek listesini almak (ProductName, UnitPrice, UnitPriceKDV) için bir sorgu yazın.
-select product_name,unit_price,(unit_price*1.18) as "UnitPriceKDV" from products
+--select product_name,unit_price,(unit_price*1.18) as "UnitPriceKDV",(unit_price+unit_price*0.18) from products;
+select product_name,unit_price,cast((unit_price*1.18) as real) as "UnitPriceKDV" from products;
 
 --10. Fiyatı 30 dan büyük kaç ürün var?
 select count(*) as "ProductCount" from products
@@ -44,7 +45,7 @@ select lower(product_name),unit_price from products
 order by unit_price desc;
 
 --12. Çalışanların ad ve soyadlarını yanyana gelecek şekilde yazdır
-select CONCAT(first_name,' ',last_name) AS "Full Name" FROM employees;
+select concat(first_name,' ',last_name) as "Full Name" from employees;
 
 --13. Region alanı NULL olan kaç tedarikçim var?
 select * from suppliers;
@@ -59,7 +60,7 @@ where region is not null;
 select concat('TR',upper(product_name)) as "ProductName" from products;
 
 --16. a.Fiyatı 20den küçük ürünlerin adının başına TR ekle
-select concat('TR',upper(product_name)) as "ProductName",unit_price from products
+select concat('TR',product_name) as "ProductName",unit_price from products
 where unit_price<20;
 
 --17. En pahalı ürün listesini (`ProductName` , `UnitPrice`) almak için bir sorgu yazın.
@@ -90,10 +91,9 @@ join categories c on c.category_id = p.category_id;
 
 
 --23. Ürünlerin kategorilerine göre fiyat ortalamasını almak için bir sorgu yazın.
-select c.category_name,avg(p.unit_price) as "ortalamafiyat" from categories c
+select c.category_id,c.category_name,cast(avg(p.unit_price) as real) as "ortalamafiyat" from categories c
 inner join products p on p.category_id = c.category_id
 group by c.category_id;
-
 
 --24. En pahalı ürünümün adı, fiyatı ve kategorisin adı nedir?
 select p.product_name,p.unit_price,c.category_name from products p
