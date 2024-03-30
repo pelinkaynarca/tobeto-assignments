@@ -1,4 +1,4 @@
-package com.tobeto.java4aPair4.services.dtos.category;
+package com.tobeto.java4aPair4.services.dtos.responses.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryForListingDto {
+public class ListCategoryResponse {
 	private int id;
 	private String name;
 }
